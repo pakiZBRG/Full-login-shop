@@ -30,7 +30,6 @@ function AddProduct() {
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(product);
         if(title && price && description && imageUrl.name){
             const form = new FormData();
             form.append("title", title);
@@ -49,7 +48,7 @@ function AddProduct() {
                     })
                     toast.success(res.data.message);
                 })
-                .catch(err => toast.dark(err.response.statusText));
+                .catch(err => toast.error(err.response.data.error));
         } else {
             toast.error('Please fill all fields');
         }

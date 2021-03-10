@@ -436,6 +436,7 @@ input[type=number] {
 }
 
 .add-product-bg {
+    min-height: 800px;
     background-color: white;
     object-fit: cover;
     border-top-left-radius: 100px;

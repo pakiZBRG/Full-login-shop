@@ -82,7 +82,11 @@ exports.createProduct = (req, res) => {
     }
 
     if(!image){
-        return res.status(415).json({err: "Insert image"});
+        return res.status(415).json({error: "Insert image"});
+    }
+
+    if(image.size > 1*1024*1024){
+        return res.status(415).json({error: "Image size too big. Upto 1MB"});
     }
 
     const product = new Product({
@@ -99,7 +103,7 @@ exports.createProduct = (req, res) => {
                 message: "Product created"
             })
         })
-        .catch(err => res.status(400).json({err: err.message}))
+        .catch(err => res.status(400).json({error: err.message}))
 }
 
 const deleteImage = filePath => {
