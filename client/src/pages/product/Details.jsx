@@ -32,7 +32,7 @@ function Details(props) {
                     <h1 className='product--title'>{product.title}</h1>
                     <div className='product__details'>
                         <div className='product__details--img'>
-                            <img src={`http://localhost:5000/${product.imageUrl}`} alt={product.title}/>
+                            <img src={`https://login-shop.herokuapp.com/${product.imageUrl}`} alt={product.title}/>
                         </div>
                         <div className='product__details--content'>
                             <p className='creator'>

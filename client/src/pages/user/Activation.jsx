@@ -34,7 +34,7 @@ export default function Register({match}) {
                 setUserData({...userData});
                 toast.success(res.data.message);
             })
-            .catch(err => toast.dark(err.response.statusText))
+            .catch(err => toast.dark(err.response.data.error))
     }
 
     return (
