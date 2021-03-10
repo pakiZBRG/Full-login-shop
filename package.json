@@ -12,7 +12,8 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "server": "nodemon server",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku": "npm run server && npm run client"
   },
   "keywords": [],
   "author": "pakiZBRG",
