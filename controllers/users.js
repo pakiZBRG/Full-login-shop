@@ -49,7 +49,7 @@ exports.registerUser = async (req, res) => {
                 //change PUBLIC_URL -> CLIENT_URL if in development
                 html: `
                     <h3>Please Click on Link to Activate:</h3>
-                    <p>${process.env.PUBLIC_URL}/users/activate/${token}</p>
+                    <p>${process.env.CLIENT_URL}/users/activate/${token}</p>
                     <hr/>
                 `
             }
@@ -91,7 +91,7 @@ exports.activateUser = (req, res) => {
     const {token} = req.body;
     jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, async (err, decoded) => {
         if(err) {
-            return res.status(401).json({error: 'Token has expired (15min)'})
+            return res.status(401).json({error: 'Token has expired (15min). Login again'})
         } else {
             //if valid save to database
             const {username, email, password} = jwt.decode(token);
@@ -172,7 +172,7 @@ exports.forgotPassword = async (req, res) => {
             //change PUBLIC_URL -> CLIENT_URL if in development
             html: `
                 <h3>Please Click on Link to Reset Password:</h3>
-                <p>${process.env.PUBLIC_URL}/resetpassword/${token}</p>
+                <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
                 <hr/>
             `
         }
@@ -484,7 +484,8 @@ exports.makeOrder = (req, res) => {
                 message: "Order has been created",
             })
         })
-        .catch(err => res.status(500).json({error: err.message}));
+        .catch(err => res.status(500).json({error: err.message}))
+
 }
 
 exports.getOrder = (req, res) => {
