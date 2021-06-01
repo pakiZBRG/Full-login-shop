@@ -400,13 +400,12 @@ exports.productToCart = (req, res) => {
             if(!product){
                 res.status(400).json({error: 'Product doesn\'t exist'});
             }
-            
+
             // Get the logged-in user
-            User
-            .findById(userId)
-            .populate('cart.items.product')
-            .then(user => {
-                    // You cant add your won product into the cart
+            User.findById(userId)
+                .populate('cart.items.product')
+                .then(user => {
+                    // You cant add your own product into the cart
                     if(product.user != userId){
                         let newQuantity = 1;
                         const updatedCartItems = [...user.cart.items];
@@ -415,6 +414,7 @@ exports.productToCart = (req, res) => {
                             return item.product._id.toString() === prodId.toString();
                         });
 
+                        // if we have a product to cart
                         if(index >= 0) {
                             newQuantity = user.cart.items[index].quantity + 1;
                             updatedCartItems[index].quantity = newQuantity;

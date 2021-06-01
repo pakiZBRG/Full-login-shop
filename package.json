@@ -8,10 +8,13 @@
     "npm": "7.6.0"
   },
   "scripts": {
+    "start": "node server.js",
     "server": "nodemon server",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "npm i --prefix client && npm run build --prefix client"
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build"
   },
   "keywords": [],
   "author": "pakiZBRG",

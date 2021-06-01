@@ -53,16 +53,13 @@ mongoose.connect(process.env.MONGO_URI, {
 // Use build for productin front-end
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
-    });
 }
 
 //Routes
 app.use("/users", require('./routes/users'));
 app.use("/products", require('./routes/products'));
 app.get('/', (req, res) => {
-    res.send("Server running")
+    res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
