@@ -50,17 +50,17 @@ mongoose.connect(process.env.MONGO_URI, {
     .then(() => console.log("MongoDB connected..."))
     .catch(err => console.log(err));
 
-// Use build for productin front-end
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-}
-
 //Routes
 app.use("/users", require('./routes/users'));
 app.use("/products", require('./routes/products'));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
 });
+
+// Production Ready
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static("client/build"));
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
