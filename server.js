@@ -55,6 +55,7 @@ app.use("/users", require('./routes/users'));
 app.use("/products", require('./routes/products'));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
+    res.setHeader("Content-Security-Policy", "default-src 'self' 'unsafe-inline'");
 });
 
 // Production Ready

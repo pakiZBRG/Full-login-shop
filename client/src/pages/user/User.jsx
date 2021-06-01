@@ -8,7 +8,7 @@ import cookie from 'js-cookie';
 
 export default function User({match}) {
     const id = match.params.userId;
-    const userId = localStorage.getItem("user").replace(/['"]+/g, '');
+    const userId = localStorage.getItem("user") && localStorage.getItem("user").replace(/['"]+/g, '');
     const [userData, setUserData] = useState({});
     const [loading, setLoading] = useState(true);
 
