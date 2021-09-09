@@ -128,7 +128,7 @@ input[type=number] {
 }
 
 .flex-form input[type='radio']{
-    width: 1px;
+    width: 15px;
     margin: 10px;
 }
 

@@ -17,8 +17,8 @@ export default function ForgotPassword() {
         e.preventDefault();
         if(email) {
             axios.post('/users/forgotpassword', {email})
-                .then(() => toast.success("Password reset link is sent"))
-                .catch(err => toast.dark(err.response.statusText));
+                .then((res) => toast.success(res.data.message))
+                .catch(err => toast.error(err.response.data.error));
         } else {
             toast.error('Enter your email address');
         }

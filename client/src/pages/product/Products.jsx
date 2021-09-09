@@ -19,7 +19,7 @@ function Products(props) {
                 setPagination(res.data.pagination);
             })
             .catch(err => toast.dark(err.response.data.err));
-    }, []);
+    }, [page]);
 
     const addToCart = product => {
         const productId = product.target.previousSibling.textContent;

@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-export default function Home({match}) {
+export default function Home() {
     const userId = localStorage.getItem("user") && localStorage.getItem("user").replace(/['"]+/g, '');
     const [userData, setUserData] = useState({
         username: "",
@@ -23,7 +23,7 @@ export default function Home({match}) {
                 })
                 .catch(err => err.response && toast.dark(err.response.statusText));
         }
-    }, [match.params]);
+    }, [userId]);
 
     const {username, id} = userData;
 

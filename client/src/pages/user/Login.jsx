@@ -34,7 +34,7 @@ export default function Login({history}) {
                         history.push(`/user/${res.data.user.id}`);
                     }
                 })
-                .catch(err => toast.dark(err.response.statusText));
+                .catch(err => toast.error(err.response.data.error));
         } else {
             toast.error('Please fill all fields');
         }

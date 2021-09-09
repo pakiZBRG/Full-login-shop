@@ -14,7 +14,7 @@ function EditProduct({match}) {
         axios.get(`/products/${prodId}`)
             .then(res => setProduct(res.data))
             .catch(err => err.reponse && toast.dark(err.response.statusText))
-    }, []);
+    }, [prodId]);
 
     const handleChange = text => e => setProduct({...product, [text]: e.target.value});
 

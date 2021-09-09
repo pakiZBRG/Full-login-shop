@@ -16,7 +16,7 @@ function YourProducts() {
                 setProducts(res.data.products)
             })
             .catch(err => toast.dark(err.response.statusText));
-    }, []);
+    }, [userId]);
 
     const deleteProduct = (btn) => {
         let productId = btn.target.previousSibling.textContent;

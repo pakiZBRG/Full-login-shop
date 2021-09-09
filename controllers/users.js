@@ -172,43 +172,42 @@ exports.forgotPassword = async (req, res) => {
             //change PUBLIC_URL -> CLIENT_URL if in development
             html: `
                 <h3>Please Click on Link to Reset Password:</h3>
-                <p>${process.env.PUBLIC_URL}/resetpassword/${token}</p>
+                <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
                 <hr/>
             `
         }
 
-        return user.updateOne({ resetPasswordLink: token }, (err, success) => {
+        return user
+            .updateOne({ resetPasswordLink: token }, (err, success) => {
             if(err) {
                 return res.status(400).json({ error: errorHandler(err) });
-            } else {
-                const transport = {
-                    host: 'smtp.gmail.com',
-                    auth: {
-                        user: process.env.EMAIL_FROM,
-                        pass: process.env.EMAIL_PASSWORD
-                    }
-                };
-                const transporter = nodemailer.createTransport(transport);
-
-                transporter.verify((err, success) => {
-                    if(err) {
-                        console.log(err);
-                    } else {
-                        console.log("Server is ready to take messages");
-                    }
-                });
-
-                transporter.sendMail(emailData, function(err, info){
-                    if(err) {
-                        console.log(err);
-                    } else {
-                        console.log(`Email send to ${info.response}`);
-                        return res.json({
-                            message: `Email has been sent to ${email}`
-                        });
-                    }
-                });
             }
+            
+            const transport = {
+                host: 'smtp.gmail.com',
+                auth: {
+                    user: process.env.EMAIL_FROM,
+                    pass: process.env.EMAIL_PASSWORD
+                }
+            };
+            const transporter = nodemailer.createTransport(transport);
+
+            transporter.verify((err, success) => {
+                if(err) {
+                    console.log(err);
+                } else {
+                    console.log("Server is ready to take messages");
+                }
+            });
+
+            return transporter.sendMail(emailData, function(err, info){
+                if(err) {
+                    console.log(err);
+                } else {
+                    console.log(`Email send to ${info.accepted[0]}`);
+                    return res.status(202).json({message: `Email has been sent to ${info.accepted[0]}`});
+                }
+            });
         })
     }
 }
@@ -367,7 +366,7 @@ exports.getUserData = (req, res) => {
                 cart: result.cart
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => res.status(500).json({error: err.message}))
 }
 
 exports.getUserProducts = (req, res) => {

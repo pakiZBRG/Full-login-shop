@@ -31,7 +31,7 @@ function Checkout({history}) {
                 setItems(res.data.cart.items);
             })
             .catch(err => err.response && toast.dark(err.response.statusText));
-    }, []);
+    });
 
     return (
         <div className='background' style={{paddingBottom: '4rem'}}>
@@ -161,7 +161,7 @@ function Checkout({history}) {
                             if(product) {
                                 return  (
                                     <section className='checkout__item' key={product._id}>
-                                        <img src={product.imageUrl} height={'100px'}/>
+                                        <img src={product.imageUrl} height={'100px'} alt={product.title}/>
                                         <h2 title={product.title}>{product.title.length > 20 ? `${product.title.substr(0, 19)}...` : product.title}</h2>
                                         <div className='checkout__item--subtotal'>
                                             <div>

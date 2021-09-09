@@ -11,8 +11,8 @@ export default function ResetPassword({match}) {
         passwordConfirm: "",
         token: ""
     });
-
-    const {password, passwordConfirm, token} = userData;
+    
+    const { password, passwordConfirm, token } = userData;
     useEffect(() => {
         let token = match.params.token;
         if(token){
@@ -37,7 +37,7 @@ export default function ResetPassword({match}) {
                 });
                 toast.success(res.data.message);
             })
-            .catch(err => toast.dark(err.response.statusText));
+            .catch(err => toast.error(err.response.data.error));
         } else {
             toast.error('Passwords don\'t match');
         }

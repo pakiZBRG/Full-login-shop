@@ -13,7 +13,7 @@ function Details(props) {
         axios.get(`/products/${id}`)
             .then(res => setProduct(res.data))
             .catch(err => toast.dark(err.response.statusText))
-    }, []);
+    }, [id]);
 
     const addToCart = product => {
         const productId = product.target.previousSibling.textContent;

@@ -16,7 +16,7 @@ function Cart() {
                 setCart(res.data.cart.items)
             })
             .catch(err => err.response && toast.dark(err.response.statusText));
-    }, []);
+    }, [userId]);
     
     const removeFromCart = btn => {
         let productId = btn.target.parentElement.firstChild.textContent
@@ -64,28 +64,28 @@ function Cart() {
                     {cart.map(({product, quantity}) => {
                         if(product) {
                             return  (
-                            <section className='cart__product' key={product._id}>
-                                <span style={{display: 'none'}}>{product._id}</span>
-                                <img src={product.imageUrl} height={'200px'}/>
-                                <div className='cart__product--single width'>
-                                    <h2 title={product.title}>{product.title.length > 20 ? `${product.title.substr(0, 19)}...` : product.title}</h2>
-                                    <small>{product._id}</small>
-                                </div>
-                                <span className='divider'></span>
-                                <h3 className='cart__product--single'>${product.price} &times; {quantity}</h3>
-                                <span className='divider'></span>
-                                <h2 className='cart__product--single gold'>${(product.price * quantity).toFixed(2)}</h2>
-                                <div className='mobile__cart'>
-                                    <h2>{product.title}</h2>
-                                    <small>{product._id}</small>
-                                    <div className='mobile__cart-inline'>
-                                        <h3>${product.price} &times; {quantity}</h3>
-                                        <span></span>
-                                        <h2 className='gold'>${(product.price * quantity).toFixed(2)}</h2>
+                                <section className='cart__product' key={product._id}>
+                                    <span style={{display: 'none'}}>{product._id}</span>
+                                    <img src={product.imageUrl} height={'200px'} alt={product.title}/>
+                                    <div className='cart__product--single width'>
+                                        <h2 title={product.title}>{product.title.length > 20 ? `${product.title.substr(0, 19)}...` : product.title}</h2>
+                                        <small>{product._id}</small>
                                     </div>
-                                </div>
-                                <button title='Remove item' className='cart__product--remove' onClick={removeFromCart.bind(this)}>&times;</button>
-                            </section>
+                                    <span className='divider'></span>
+                                    <h3 className='cart__product--single'>${product.price} &times; {quantity}</h3>
+                                    <span className='divider'></span>
+                                    <h2 className='cart__product--single gold'>${(product.price * quantity).toFixed(2)}</h2>
+                                    <div className='mobile__cart'>
+                                        <h2>{product.title}</h2>
+                                        <small>{product._id}</small>
+                                        <div className='mobile__cart-inline'>
+                                            <h3>${product.price} &times; {quantity}</h3>
+                                            <span></span>
+                                            <h2 className='gold'>${(product.price * quantity).toFixed(2)}</h2>
+                                        </div>
+                                    </div>
+                                    <button title='Remove item' className='cart__product--remove' onClick={removeFromCart.bind(this)}>&times;</button>
+                                </section>
                             )
                         }
                     })}

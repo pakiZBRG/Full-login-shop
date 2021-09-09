@@ -16,7 +16,7 @@ function Orders() {
                 setOrders(res.data.doc)
             })
             .catch(err => toast.dark(err.response.statusText));
-    }, []);
+    }, [userId]);
 
     return (
         <div className='background' style={{paddingBottom: '3rem'}}>
