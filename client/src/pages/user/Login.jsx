@@ -43,7 +43,7 @@ export default function Login({history}) {
     const sendGoogleToken = tokenId => {
         axios.post('users/googlelogin', {idToken: tokenId})
             .then(res => redirectUser(res))
-            .catch(() => toast.dark('Google login error'))
+            .catch(err => console.log(err.data))
     };
     const responseGoogle = response => sendGoogleToken(response.tokenId);
 

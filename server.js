@@ -4,7 +4,6 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
-const helmet = require('helmet');
 const compression = require('compression');
 const multer = require('multer');
 const app = express();
@@ -31,7 +30,6 @@ const fileFilter = (req, file, cb) => {
 const stream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 
 app.use(morgan('dev', {stream}));
-app.use(helmet());
 app.use(compression());
 app.use(cors());
 
@@ -53,15 +51,10 @@ mongoose.connect(process.env.MONGO_URI, {
 //Routes
 app.use("/users", require('./routes/users'));
 app.use("/products", require('./routes/products'));
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
-    // res.setHeader("Content-Security-Policy", "default-src 'self' 'unsafe-inline'");
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });
-
-// Production Ready
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static("client/build"));
-}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

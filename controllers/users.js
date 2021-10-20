@@ -253,7 +253,8 @@ exports.resetPassword = (req, res) => {
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT);
 exports.googleLogin = (req, res) => {
     //Get token from request
-    const {idToken} = req.body;
+    const { idToken } = req.body;
+    console.log(req.body)
 
     client
         .verifyIdToken({idToken, audience: process.env.GOOGLE_CLIENT})
@@ -300,7 +301,8 @@ exports.googleLogin = (req, res) => {
                 else {
                     return res.status(400).json({ error: "Google login failed. Try again!" })
                 }
-        });
+        })
+            .catch(err => console.log(err))
 }
 
 exports.getUserData = (req, res) => {
