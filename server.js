@@ -39,7 +39,11 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(multer({storage: diskStorage, fileFilter}).single('myImage'));
 
 // Database Connect
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+})
     .then(() => console.log("MongoDB connected..."))
     .catch(err => console.log(err));
 
