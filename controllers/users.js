@@ -176,8 +176,7 @@ exports.forgotPassword = async (req, res) => {
             `
         }
 
-        return user
-            .updateOne({ resetPasswordLink: token }, (err, success) => {
+        return user.updateOne({ resetPasswordLink: token }, (err, success) => {
             if(err) {
                 return res.status(400).json({ error: errorHandler(err) });
             }
@@ -256,8 +255,7 @@ exports.googleLogin = (req, res) => {
     const { idToken } = req.body;
     console.log(req.body)
 
-    client
-        .verifyIdToken({idToken, audience: process.env.GOOGLE_CLIENT})
+    client.verifyIdToken({idToken, audience: process.env.GOOGLE_CLIENT})
         .then(response => {
             const {email_verified, name, email} = response.payload;
             if(email_verified) {
@@ -301,8 +299,7 @@ exports.googleLogin = (req, res) => {
                 else {
                     return res.status(400).json({ error: "Google login failed. Try again!" })
                 }
-        })
-            .catch(err => console.log(err))
+        }).catch(err => console.log(err))
 }
 
 exports.getUserData = (req, res) => {
