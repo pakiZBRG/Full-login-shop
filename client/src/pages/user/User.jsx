@@ -29,7 +29,7 @@ export default function User({match}) {
         }
 
         return () => _isMounted = false;
-    });
+    }, []);
 
     const { _id, username, email } = userData;
 

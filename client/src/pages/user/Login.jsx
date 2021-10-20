@@ -5,7 +5,6 @@ import { authenticate, googleAuth, isAuth } from '../../helpers/auth';
 import { ToastContainer, toast } from 'react-toastify';
 import { Link, Redirect } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 
 export default function Login({history}) {
@@ -48,14 +47,6 @@ export default function Login({history}) {
     };
     const responseGoogle = response => sendGoogleToken(response.tokenId);
 
-    //Facebook Login
-    const sendFacebookToken = (userID, accessToken) => {
-        axios.post('users/facebooklogin', {userID, accessToken})
-            .then(res => redirectUser(res))
-            .catch(() => toast.dark('Facebook login error.'))
-    };
-    const responseFacebook = response => sendFacebookToken(response.userID, response.accessToken);
-
     //Redirect logged user via soacial media to his profile
     const redirectUser = res => {
         googleAuth(res, () => {
@@ -71,19 +62,25 @@ export default function Login({history}) {
                 <div className='flex-register'>
                     <h2>Login</h2>
                     <form className='flex-form' onSubmit={handleSubmit}>
-                        <input
-                            type='email'
-                            value={email}
-                            onChange={handleChange('email')}
-                            placeholder='Email'
-                            autoComplete="nope"
-                        />
-                        <input
-                            type='password'
-                            value={password}
-                            onChange={handleChange('password')}
-                            placeholder='Password'
-                        />
+                        <div className="form-control">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type='email'
+                                value={email}
+                                onChange={handleChange('email')}
+                                name='email'
+                                autoComplete="off"
+                            />
+                        </div>
+                        <div className="form-control">
+                            <label htmlFor="password">Password</label>
+                            <input
+                                type='password'
+                                value={password}
+                                onChange={handleChange('password')}
+                                name='password'
+                            />
+                        </div>
                         <input type='submit' value='Login'/>
                         <Link to='/forgotpassword' className='forgot-password'>Forgot password?</Link>
                     </form>
@@ -103,20 +100,6 @@ export default function Login({history}) {
                                 className='login-btn google'
                             >
                                 <i className='fa fa-google' style={{marginRight: '0.5rem'}}></i>Login with Google
-                            </button>
-                        )}
-                    />
-                    <FacebookLogin
-                        appId={`${process.env.REACT_APP_FACEBOOK_CLIENT}`}
-                        autoLoad={false}
-                        callback={responseFacebook}
-                        render={renderProps => (
-                            <button
-                                onClick={renderProps.onClick}
-                                className='login-btn facebook'
-                            >
-                                <i className='fa fa-facebook' style={{marginRight: '0.5rem'}}></i>
-                                Login with Facebook
                             </button>
                         )}
                     />

@@ -24,7 +24,7 @@ function PlaceOrder({history}) {
                 })
             })
             .catch(err => err.response && toast.dark(err.response.statusText));
-    });
+    }, []);
 
     const orderItems = [];
 

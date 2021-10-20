@@ -49,31 +49,44 @@ export default function Register() {
                 <div className='flex-register'>
                     <h2>Create an Account</h2>
                     <form className='flex-form' onSubmit={handleSubmit}>
-                        <input
-                            type='text'
-                            value={username}
-                            onChange={handleChange('username')}
-                            placeholder='Username'
-                        />
-                        <input
-                            type='email'
-                            value={email}
-                            onChange={handleChange('email')}
-                            placeholder='Email'
-                            autoComplete="nope"
-                        />
-                        <input
-                            type='password'
-                            value={password}
-                            onChange={handleChange('password')}
-                            placeholder='Password'
-                        />
-                        <input 
-                            type='password'
-                            value={passwordConfirm}
-                            onChange={handleChange('passwordConfirm')}
-                            placeholder='Confirm password'
-                        />
+                        <div className='form-control'>
+                            <label htmlFor="username">Username</label>
+                            <input
+                                name='username'
+                                type='text'
+                                value={username}
+                                onChange={handleChange('username')}
+                                autoComplete="off"
+                            />
+                        </div>
+                        <div className="form-control">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                name='email'
+                                type='email'
+                                value={email}
+                                onChange={handleChange('email')}
+                                autoComplete="off"
+                            />
+                        </div>
+                        <div className="form-control">
+                            <label htmlFor="password">Password</label>
+                            <input
+                                name='password'
+                                type='password'
+                                value={password}
+                                onChange={handleChange('password')}
+                            />
+                        </div>
+                        <div className="form-control">
+                            <label htmlFor="confirmPassword">Confirm password</label>
+                            <input 
+                                name='confirmPassword'
+                                type='password'
+                                value={passwordConfirm}
+                                onChange={handleChange('passwordConfirm')}
+                            />
+                        </div>
                         <input type='submit' value='Register'/>
                     </form>
                     <span className='separator'><p>or</p></span>

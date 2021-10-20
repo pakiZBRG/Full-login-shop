@@ -31,7 +31,7 @@ function Checkout({history}) {
                 setItems(res.data.cart.items);
             })
             .catch(err => err.response && toast.dark(err.response.statusText));
-    });
+    }, []);
 
     return (
         <div className='background' style={{paddingBottom: '4rem'}}>

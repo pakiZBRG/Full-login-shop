@@ -16,7 +16,7 @@ function Cart() {
                 setCart(res.data.cart.items)
             })
             .catch(err => err.response && toast.dark(err.response.statusText));
-    }, [userId]);
+    }, []);
     
     const removeFromCart = btn => {
         let productId = btn.target.parentElement.firstChild.textContent
@@ -97,7 +97,7 @@ function Cart() {
                             Checkout
                         </Link>
                     </button>
-                </article> 
+                </article>
                     : 
                 <h1 className='empty__cart'>Such emptiness :(</h1>
                 :

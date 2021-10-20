@@ -118,13 +118,21 @@ input[type=number] {
 
 .flex-form input{
     width: 300px;
-    margin: .8rem 0;
+    margin: .2rem 0;
     border: none;
     background: #5117bd;
     padding: 11px 12px 9px 12px;
     color: #ececec;
-    border-radius: 20px;
+    border-radius: 1rem;
     font-size: 1.15rem;
+}
+
+.flex-form label{
+    font-size: .9rem;
+    opacity: .8;
+}
+.form-control {
+    margin-bottom: .3rem;
 }
 
 .flex-form input[type='radio']{
@@ -146,7 +154,7 @@ input[type=number] {
 
 .flex-form input[type='submit']{
     background: #fff;
-    border: 1px solid #2c0859;
+    border: 1px solid transparent;
     color: #2c0859;
     margin: 2rem auto 1rem auto;
     cursor: pointer;
@@ -156,6 +164,7 @@ input[type=number] {
 }
 
 .flex-form input[type='submit']:hover{
+    border-color: #2c0859;
     transform: translateY(-4px);
     box-shadow: 0px 4px 0px #fff;
 }
@@ -453,7 +462,7 @@ input[type=number] {
     display: inline-block;
     position: relative;
     color: #ececec;
-    margin: 0.8rem 0;
+    margin: 1rem 0 !important;
 }
 
 .custom-file-input input {
@@ -484,10 +493,10 @@ input[type=number] {
 }
 
 #target {
+    margin: .5rem 0 !important;
     height: 175px;
     width: 100%;
     border-radius: 20px;
-    margin: 0 auto;
     object-fit: cover;
     position: relative;
 }

@@ -1,6 +1,6 @@
 const express = require('express');
 const { validLogin, validRegister, forgotPasswordValidator, resetPasswordValidator } = require('../helpers/Validation');
-const { registerUser, activateUser, loginUser, forgotPassword, resetPassword, googleLogin, facebookLogin, getUserData, getUserProducts, productToCart, displayCart, clearCart, removeProductFromCart, postCheckout, makeOrder, getOrder } = require('../controllers/users');
+const { registerUser, activateUser, loginUser, forgotPassword, resetPassword, googleLogin, getUserData, getUserProducts, productToCart, displayCart, clearCart, removeProductFromCart, postCheckout, makeOrder, getOrder } = require('../controllers/users');
 const router = express.Router();
 
 //Create an account
@@ -26,9 +26,6 @@ router.put('/resetpassword', resetPasswordValidator, resetPassword)
 
 //Google Login
 router.post('/googlelogin', googleLogin);
-
-//Facebook Login
-router.post('/facebooklogin', facebookLogin);
 
 //Add product to cart;
 router.post('/cart/:id', productToCart);

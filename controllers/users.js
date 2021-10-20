@@ -2,7 +2,6 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
-const fetch = require('node-fetch');
 const _ = require('lodash');
 const { OAuth2Client } = require('google-auth-library');
 const { errorHandler } = require('../helpers/ErrorHandler');
@@ -65,7 +64,7 @@ exports.registerUser = async (req, res) => {
     
             transporter.verify((err, success) => {
                 if(err) {
-                    console.log(err);
+                    console.log("Error");
                 } else {
                     console.log("Server is ready to take messages");
                 }
@@ -127,10 +126,10 @@ exports.loginUser = async (req, res) => {
     else {
         //if user exists
         const user = await User.findOne({email: req.body.email});
-        if(!user) return res.status(400).json({error: 'No user with given email. Please sign up or try another email'});
+        if(!user) return res.status(409).json({error: 'Wrong Credentials'});
 
         const validPassword = await bcrypt.compare(req.body.password, user.password);
-        if(!validPassword) return res.status(400).json({error: "Wrong Password"});
+        if(!validPassword) return res.status(409).json({error: "Wrong Credentials"});
 
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {expiresIn: '10d'})
 
@@ -172,7 +171,7 @@ exports.forgotPassword = async (req, res) => {
             //change PUBLIC_URL -> CLIENT_URL if in development
             html: `
                 <h3>Please Click on Link to Reset Password:</h3>
-                <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
+                <p>${process.env.PUBLIC_URL}/resetpassword/${token}</p>
                 <hr/>
             `
         }
@@ -302,57 +301,6 @@ exports.googleLogin = (req, res) => {
                     return res.status(400).json({ error: "Google login failed. Try again!" })
                 }
         });
-}
-
-exports.facebookLogin = (req, res) => {
-    const {userID, accessToken} = req.body;
-    const url = `https://graph.facebook.com/v2.11/${userID}?fields=id,name,email&access_token=${accessToken}`;
-
-    return (
-        fetch(url, { method:'GET' })
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
-                const {email, name} = response;
-                User.findOne({email})
-                    .exec(async (err, user) => {
-                        //if user with given email exists -> Same w/ Google
-                        if(user){
-                            const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {expiresIn: "1d"});
-                            const { _id, email, name } = user;
-                            console.log(`Facebook user: ${user}`)
-                            return res.json({
-                                token,
-                                user: {_id, email, name}
-                            })
-                        }
-                        //if user doesnt exists, it will save data in mongoDB and generate password
-                        else {
-                            let password = email + process.env.JWT_SECRET;
-                            const newPassword = await bcrypt.hash(password, 10);
-                            user = new User({ 
-                                username: name,
-                                email,
-                                password: newPassword
-                            })
-
-                            user.save((err, data) => {
-                                if(err){
-                                    return res.status(400).json({ error: 'User signup failed with Facebook' })
-                                }
-                                const token = jwt.sign({ _id: data._id }, process.env.JWT_SECRET, {expiresIn: "1d"});
-                                const { _id, email, name } = data;
-                                console.log(`Facebook data: ${data}`)
-                                return res.json({
-                                    token,
-                                    user: {_id, email, name}
-                                })
-                            })
-                        }
-                    })
-            })
-            .catch(err => res.json({ error: err.message }))
-    )
 }
 
 exports.getUserData = (req, res) => {
