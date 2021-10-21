@@ -82,7 +82,7 @@ function EditProduct({match}) {
                         {/* FILE SELECTION */}
                         {!image &&
                             <div id='target'>
-                                <img id="target" src={imageUrl} alt={title}/>
+                                <img id="target" src={`/${imageUrl}`} alt={title}/>
                                 <label className="custom-file-input onHover">
                                     <input type="file" name='myImage' onChange={onImageChange}/>
                                 </label>
