@@ -49,18 +49,24 @@ export default function ResetPassword({match}) {
                 <div className='flex-register'>
                     <h2>Reset password</h2>
                     <form className='flex-form' onSubmit={handleSubmit}>
-                        <input
-                            type='password'
-                            value={password}
-                            onChange={handleChange('password')}
-                            placeholder='Password'
-                        />
-                        <input
-                            type='password'
-                            value={passwordConfirm}
-                            onChange={handleChange('passwordConfirm')}
-                            placeholder='Confirm password'
-                        />
+                        <div className="form-control">
+                            <label htmlFor="password">Password</label>
+                            <input
+                                type='password'
+                                value={password}
+                                onChange={handleChange('password')}
+                                name='Password'
+                            />
+                        </div>
+                        <div className="form-control">
+                            <label htmlFor="confirmPassword">Confirm Password</label>
+                            <input
+                                type='password'
+                                value={passwordConfirm}
+                                onChange={handleChange('passwordConfirm')}
+                                name='confirmPassword'
+                            />
+                        </div>
                         <input type='submit' value='Submit'/>
                     </form>
                     <span className='separator'><p style={{margin: '2.5rem 0'}}>or</p></span>

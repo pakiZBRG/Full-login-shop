@@ -31,13 +31,15 @@ export default function ForgotPassword() {
                     <h2>Forgotten password</h2>
                     <p style={{textAlign: 'center', marginBottom: '2rem'}}>Insert your email to receive link to reset your password.</p>
                     <form className='flex-form' onSubmit={handleSubmit}>
-                        <input
-                            type='email'
-                            value={email}
-                            onChange={handleChange('email')}
-                            placeholder='Email'
-                            autoComplete="nope"
-                        />
+                        <div className="form-control">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type='email'
+                                value={email}
+                                onChange={handleChange('email')}
+                                autoComplete="nope"
+                            />
+                        </div>
                         <input type='submit' value='Submit'/>
                     </form>
                 </div>
